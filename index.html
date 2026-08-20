@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>Ledger | Expense Tracker</title>
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <div class="app-shell">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <div class="brand">
+        <div class="brand-name">Ledger</div>
+        <div class="brand-sub">Expense management</div>
+      </div>
+
+      <nav class="nav" aria-label="Primary navigation">
+
+        <button
+          class="nav-item is-active"
+          type="button"
+          data-view="dashboard">
+          Dashboard
+        </button>
+
+        <button
+          class="nav-item"
+          type="button"
+          data-view="transactions">
+          Transactions
+        </button>
+
+        <button
+          class="nav-item"
+          type="button"
+          data-view="goals">
+          Goals
+        </button>
+
+        <button
+          class="nav-item"
+          type="button"
+          data-view="budgets">
+          Budgets
+        </button>
+
+        <button
+          class="nav-item"
+          type="button"
+          data-view="reports">
+          Reports
+        </button>
+
+      </nav>
+
+      <div class="sidebar-footer">
+
+        <button
+          class="btn-secondary full-width"
+          type="button"
+          id="btn-export">
+          Export CSV
+        </button>
+
+        <button
+          class="btn-danger-text full-width"
+          type="button"
+          id="btn-reset">
+          Reset data
+        </button>
+
+      </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+      <!-- TOP BAR -->
+      <header class="topbar">
+
+        <div class="quickadd">
+
+          <label
+            class="sr-only"
+            for="quickadd-input">
+            Quick add transaction
+          </label>
+
+          <input
+            id="quickadd-input"
+            type="text"
+            placeholder="Quick add: coffee 150 yesterday"
+            autocomplete="off">
+
+          <button
+            id="quickadd-submit"
+            class="btn-primary"
+            type="button">
+            Add transaction
+          </button>
+
+        </div>
+
+        <button
+          class="btn-secondary"
+          type="button"
+          id="btn-open-goal-modal">
+          New goal
+        </button>
+
+      </header>
+
+
+      <!-- ================= DASHBOARD ================= -->
+
+      <section
+        class="view is-active"
+        id="view-dashboard">
+
+        <div class="view-head">
+
+          <div>
+            <p class="eyebrow">Overview</p>
+
+            <h1>Dashboard</h1>
+
+            <p class="muted">
+              A clear view of your current financial position.
+            </p>
+          </div>
+
+        </div>
+
+
+        <!-- STAT CARDS -->
+
+        <div class="stat-grid">
+
+          <article class="stat-card">
+
+            <div class="stat-label">
+              Total balance
+            </div>
+
+            <div
+              class="stat-value"
+              id="stat-balance">
+              ₹0
+            </div>
+
+            <div
+              class="stat-foot"
+              id="stat-balance-foot">
+              Across all accounts
+            </div>
+
+          </article>
+
+
+          <article class="stat-card">
+
+            <div class="stat-label">
+              Income this month
+            </div>
+
+            <div
+              class="stat-value amount-income"
+              id="stat-income">
+              ₹0
+            </div>
+
+            <div
+              class="stat-foot"
+              id="stat-income-foot">
+              Current month
+            </div>
+
+          </article>
+
+
+          <article class="stat-card">
+
+            <div class="stat-label">
+              Spent this month
+            </div>
+
+            <div
+              class="stat-value amount-expense"
+              id="stat-expense">
+              ₹0
+            </div>
+
+            <div
+              class="stat-foot"
+              id="stat-expense-foot">
+              Current month
+            </div>
+
+          </article>
+
+
+          <article class="stat-card">
+
+            <div class="stat-label">
+              Savings rate
+            </div>
+
+            <div
+              class="stat-value amount-accent"
+              id="stat-savings-rate">
+              0%
+            </div>
+
+            <div class="stat-foot">
+              Net income retained
+            </div>
+
+          </article>
+
+        </div>
+
+
+        <!-- CHARTS -->
+
+        <div class="content-grid two-column">
+
+          <section class="panel">
+
+            <div class="panel-head">
+
+              <div>
+
+                <h2>
+                  Spending by category
+                </h2>
+
+                <p
+                  class="panel-sub"
+                  id="donut-month-label">
+                </p>
+
+              </div>
+
+            </div>
+
+            <div class="donut-wrap">
+
+              <canvas
+                id="chart-donut"
+                width="220"
+                height="220"
+                aria-label="Spending by category chart">
+              </canvas>
+
+              <div
+                id="donut-legend"
+                class="donut-legend">
+              </div>
+
+            </div>
+
+          </section>
+
+
+          <section class="panel">
+
+            <div class="panel-head">
+
+              <div>
+
+                <h2>
+                  Six-month trend
+                </h2>
+
+                <p class="panel-sub">
+                  Income compared with expenses
+                </p>
+
+              </div>
+
+            </div>
+
+            <div class="chart-frame">
+
+              <canvas
+                id="chart-trend"
+                width="560"
+                height="280"
+                aria-label="Six month income and expense chart">
+              </canvas>
+
+            </div>
+
+            <div class="chart-key">
+
+              <span>
+                <i class="key-income"></i>
+                Income
+              </span>
+
+              <span>
+                <i class="key-expense"></i>
+                Expense
+              </span>
+
+            </div>
+
+          </section>
+
+        </div>
+
+
+        <!-- DASHBOARD LOWER SECTION -->
+
+        <div class="content-grid two-column">
+
+          <section class="panel">
+
+            <div class="panel-head">
+
+              <h2>
+                Goals in progress
+              </h2>
+
+              <button
+                class="link-btn"
+                type="button"
+                data-view-link="goals">
+                View all
+              </button>
+
+            </div>
+
+            <div
+              id="dashboard-goals"
+              class="goal-mini-list">
+            </div>
+
+          </section>
+
+
+          <section class="panel">
+
+            <div class="panel-head">
+
+              <h2>
+                Recent activity
+              </h2>
+
+              <button
+                class="link-btn"
+                type="button"
+                data-view-link="transactions">
+                View all
+              </button>
+
+            </div>
+
+            <div
+              id="dashboard-recent"
+              class="tx-list">
+            </div>
+
+          </section>
+
+        </div>
+
+      </section>
+
+
+      <!-- ================= TRANSACTIONS ================= -->
+
+      <section
+        class="view"
+        id="view-transactions">
+
+        <div class="view-head">
+
+          <div>
+
+            <p class="eyebrow">
+              Records
+            </p>
+
+            <h1>
+              Transactions
+            </h1>
+
+            <p class="muted">
+              Review, filter and manage every recorded transaction.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <section class="panel">
+
+          <div class="filter-row">
+
+            <input
+              type="search"
+              id="filter-search"
+              placeholder="Search transactions">
+
+            <select
+              id="filter-category"
+              aria-label="Filter by category">
+
+              <option value="">
+                All categories
+              </option>
+
+            </select>
+
+
+            <select
+              id="filter-type"
+              aria-label="Filter by type">
+
+              <option value="">
+                All types
+              </option>
+
+              <option value="expense">
+                Expense
+              </option>
+
+              <option value="income">
+                Income
+              </option>
+
+            </select>
+
+
+            <button
+              class="btn-primary"
+              type="button"
+              id="btn-open-tx-modal">
+              Add transaction
+            </button>
+
+          </div>
+
+
+          <div class="table-wrap">
+
+            <table class="data-table tx-table">
+
+              <thead>
+
+                <tr>
+
+                  <th>
+                    Date
+                  </th>
+
+                  <th>
+                    Category
+                  </th>
+
+                  <th>
+                    Note
+                  </th>
+
+                  <th>
+                    Account
+                  </th>
+
+                  <th class="right">
+                    Amount
+                  </th>
+
+                  <th class="actions-col">
+                    Actions
+                  </th>
+
+                </tr>
+
+              </thead>
+
+              <tbody id="tx-table-body"></tbody>
+
+            </table>
+
+          </div>
+
+
+          <div
+            id="tx-empty"
+            class="empty-state"
+            style="display:none;">
+
+            <p>
+              No transactions found.
+            </p>
+
+            <span class="muted small">
+              Add a transaction or change your filters.
+            </span>
+
+          </div>
+
+        </section>
+
+      </section>
+
+
+      <!-- ================= GOALS ================= -->
+
+      <section
+        class="view"
+        id="view-goals">
+
+        <div class="view-head">
+
+          <div>
+
+            <p class="eyebrow">
+              Planning
+            </p>
+
+            <h1>
+              Goals
+            </h1>
+
+            <p class="muted">
+              Set targets and track progress toward them.
+            </p>
+
+          </div>
+
+
+          <button
+            class="btn-primary"
+            type="button"
+            data-open-goal-from-view="true"
+            id="btn-open-goal-modal-secondary">
+            New goal
+          </button>
+
+        </div>
+
+
+        <div
+          class="goal-grid"
+          id="goals-grid">
+        </div>
+
+
+        <div
+          id="goals-empty"
+          class="empty-state"
+          style="display:none;">
+
+          <p>
+            No goals yet.
+          </p>
+
+          <span class="muted small">
+            Create a target for travel, education, savings or any planned purchase.
+          </span>
+
+        </div>
+
+      </section>
+
+
+      <!-- ================= BUDGETS ================= -->
+
+      <section
+        class="view"
+        id="view-budgets">
+
+        <div class="view-head">
+
+          <div>
+
+            <p class="eyebrow">
+              Control
+            </p>
+
+            <h1>
+              Budgets
+            </h1>
+
+            <p class="muted">
+              Set monthly limits and monitor category spending.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <section class="panel">
+
+          <div
+            id="budget-list"
+            class="budget-list">
+          </div>
+
+        </section>
+
+      </section>
+
+
+      <!-- ================= REPORTS ================= -->
+
+      <section
+        class="view"
+        id="view-reports">
+
+        <div class="view-head">
+
+          <div>
+
+            <p class="eyebrow">
+              Analysis
+            </p>
+
+            <h1>
+              Reports
+            </h1>
+
+            <p class="muted">
+              A concise summary of your recent financial activity.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <section class="panel report-panel">
+
+          <div
+            id="report-narrative"
+            class="report-narrative">
+          </div>
+
+        </section>
+
+
+        <section class="panel">
+
+          <div class="panel-head">
+
+            <h2>
+              Monthly totals
+            </h2>
+
+          </div>
+
+
+          <div class="table-wrap">
+
+            <table
+              class="data-table"
+              id="report-table">
+
+              <thead>
+
+                <tr>
+
+                  <th>
+                    Month
+                  </th>
+
+                  <th class="right">
+                    Income
+                  </th>
+
+                  <th class="right">
+                    Expense
+                  </th>
+
+                  <th class="right">
+                    Net
+                  </th>
+
+                </tr>
+
+              </thead>
+
+              <tbody id="report-table-body"></tbody>
+
+            </table>
+
+          </div>
+
+        </section>
+
+      </section>
+
+    </main>
+
+  </div>
+
+
+  <!-- ================= TRANSACTION MODAL ================= -->
+
+  <div
+    class="modal-overlay"
+    id="modal-tx"
+    aria-hidden="true">
+
+    <div
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="tx-modal-title">
+
+      <div class="modal-head">
+
+        <h3 id="tx-modal-title">
+          Add transaction
+        </h3>
+
+        <button
+          class="modal-close"
+          type="button"
+          data-close-modal
+          aria-label="Close">
+          Close
+        </button>
+
+      </div>
+
+
+      <form id="tx-form">
+
+        <input
+          type="hidden"
+          id="tx-id">
+
+
+        <div class="form-row">
+
+          <label>
+            Type
+          </label>
+
+          <div
+            class="segmented"
+            id="tx-type-toggle">
+
+            <button
+              type="button"
+              class="seg-btn is-active"
+              data-type="expense">
+              Expense
+            </button>
+
+            <button
+              type="button"
+              class="seg-btn"
+              data-type="income">
+              Income
+            </button>
+
+          </div>
+
+        </div>
+
+
+        <div class="form-row form-row-2">
+
+          <div>
+
+            <label for="tx-amount">
+              Amount
+            </label>
+
+            <input
+              type="number"
+              id="tx-amount"
+              step="0.01"
+              min="0.01"
+              required
+              placeholder="0.00">
+
+          </div>
+
+
+          <div>
+
+            <label for="tx-date">
+              Date
+            </label>
+
+            <input
+              type="date"
+              id="tx-date"
+              required>
+
+          </div>
+
+        </div>
+
+
+        <div class="form-row form-row-2">
+
+          <div>
+
+            <label for="tx-category">
+              Category
+            </label>
+
+            <select
+              id="tx-category"
+              required>
+            </select>
+
+          </div>
+
+
+          <div>
+
+            <label for="tx-account">
+              Account
+            </label>
+
+            <select
+              id="tx-account"
+              required>
+            </select>
+
+          </div>
+
+        </div>
+
+
+        <div class="form-row">
+
+          <label for="tx-note">
+            Note
+          </label>
+
+          <input
+            type="text"
+            id="tx-note"
+            maxlength="120"
+            placeholder="Optional note">
+
+        </div>
+
+
+        <div class="modal-actions">
+
+          <button
+            type="button"
+            class="btn-secondary"
+            data-close-modal>
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            class="btn-primary">
+            Save transaction
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <!-- ================= GOAL MODAL ================= -->
+
+  <div
+    class="modal-overlay"
+    id="modal-goal"
+    aria-hidden="true">
+
+    <div
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="goal-modal-title">
+
+      <div class="modal-head">
+
+        <h3 id="goal-modal-title">
+          New goal
+        </h3>
+
+        <button
+          class="modal-close"
+          type="button"
+          data-close-modal
+          aria-label="Close">
+          Close
+        </button>
+
+      </div>
+
+
+      <form id="goal-form">
+
+        <input
+          type="hidden"
+          id="goal-id">
+
+
+        <div class="form-row">
+
+          <label for="goal-name">
+            Goal name
+          </label>
+
+          <input
+            type="text"
+            id="goal-name"
+            maxlength="80"
+            required
+            placeholder="Emergency fund">
+
+        </div>
+
+
+        <div class="form-row form-row-2">
+
+          <div>
+
+            <label for="goal-target">
+              Target amount
+            </label>
+
+            <input
+              type="number"
+              id="goal-target"
+              min="0.01"
+              step="0.01"
+              required
+              placeholder="50000">
+
+          </div>
+
+
+          <div>
+
+            <label for="goal-date">
+              Target date
+            </label>
+
+            <input
+              type="date"
+              id="goal-date"
+              required>
+
+          </div>
+
+        </div>
+
+
+        <div class="form-row form-row-2">
+
+          <div>
+
+            <label for="goal-color">
+              Accent
+            </label>
+
+            <select id="goal-color">
+
+              <option value="gold">
+                Gold
+              </option>
+
+              <option value="blue">
+                Blue
+              </option>
+
+              <option value="green">
+                Green
+              </option>
+
+              <option value="red">
+                Red
+              </option>
+
+            </select>
+
+          </div>
+
+
+          <div>
+
+            <label for="goal-roundup">
+              Round-up savings
+            </label>
+
+            <select id="goal-roundup">
+
+              <option value="0">
+                Off
+              </option>
+
+              <option value="1">
+                On
+              </option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+
+        <div class="modal-actions">
+
+          <button
+            type="button"
+            class="btn-secondary"
+            data-close-modal>
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            class="btn-primary">
+            Save goal
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <!-- ================= CONTRIBUTION MODAL ================= -->
+
+  <div
+    class="modal-overlay"
+    id="modal-contribute"
+    aria-hidden="true">
+
+    <div
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="contribute-title">
+
+      <div class="modal-head">
+
+        <div>
+
+          <h3 id="contribute-title">
+            Add contribution
+          </h3>
+
+          <p
+            class="panel-sub"
+            id="contribute-goal-name">
+          </p>
+
+        </div>
+
+        <button
+          class="modal-close"
+          type="button"
+          data-close-modal
+          aria-label="Close">
+          Close
+        </button>
+
+      </div>
+
+
+      <form id="contribute-form">
+
+        <input
+          type="hidden"
+          id="contribute-goal-id">
+
+
+        <div class="form-row">
+
+          <label for="contribute-amount">
+            Amount
+          </label>
+
+          <input
+            type="number"
+            id="contribute-amount"
+            min="0.01"
+            step="0.01"
+            required
+            placeholder="1000">
+
+        </div>
+
+
+        <div class="form-row">
+
+          <label for="contribute-account">
+            Account
+          </label>
+
+          <select
+            id="contribute-account"
+            required>
+          </select>
+
+        </div>
+
+
+        <div class="modal-actions">
+
+          <button
+            type="button"
+            class="btn-secondary"
+            data-close-modal>
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            class="btn-primary">
+            Add to goal
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+
+  <div
+    class="toast"
+    id="toast"
+    role="status"
+    aria-live="polite">
+  </div>
+
+
+  <!-- JAVASCRIPT MODULES -->
+
+  <script src="js/utils.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/transactions.js"></script>
+  <script src="js/goals.js"></script>
+  <script src="js/budgets.js"></script>
+  <script src="js/reports.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
