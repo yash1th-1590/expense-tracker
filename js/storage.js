@@ -1,8 +1,3 @@
-/* =========================================================
-   storage.js
-   Handles all localStorage operations.
-   ========================================================= */
-
 const Store = (() => {
 
   const KEY = 'ledger_app_data_v2';
