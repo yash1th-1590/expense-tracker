@@ -1,8 +1,3 @@
-/* =========================================================
-   utils.js
-   Shared helper functions used throughout the application.
-   ========================================================= */
-
 const Utils = (() => {
 
   function uid(prefix = 'id') {
@@ -136,15 +131,6 @@ const Utils = (() => {
     );
   }
 
-
-  /*
-    Examples:
-
-    coffee 150
-    coffee 150 yesterday
-    salary 45000 today
-    shopping 1200 2026-08-15
-  */
 
   function parseQuickAdd(text, categories) {
 
