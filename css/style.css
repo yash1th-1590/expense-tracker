@@ -173,7 +173,7 @@ h3 {
 }
 
 
-/* ================= SIDEBAR ================= */
+
 
 .sidebar {
   position: sticky;
@@ -270,7 +270,7 @@ h3 {
 }
 
 
-/* ================= MAIN ================= */
+
 
 .main-content {
   min-width: 0;
@@ -349,7 +349,7 @@ h3 {
 }
 
 
-/* ================= BUTTONS ================= */
+
 
 .btn-primary,
 .btn-secondary,
@@ -455,7 +455,7 @@ h3 {
 }
 
 
-/* ================= STAT CARDS ================= */
+
 
 .stat-grid {
   display: grid;
@@ -526,7 +526,7 @@ h3 {
 }
 
 
-/* ================= PANELS ================= */
+
 
 .content-grid {
   display: grid;
@@ -576,7 +576,7 @@ h3 {
 }
 
 
-/* ================= CHARTS ================= */
+
 
 .donut-wrap {
   display: flex;
@@ -700,7 +700,7 @@ h3 {
 }
 
 
-/* ================= TABLES ================= */
+
 
 .table-wrap {
   width: 100%;
@@ -824,7 +824,7 @@ h3 {
 }
 
 
-/* ================= FILTERS ================= */
+
 
 .filter-row {
   display: grid;
@@ -841,7 +841,7 @@ h3 {
 }
 
 
-/* ================= GOALS ================= */
+
 
 .goal-grid {
   display: grid;
@@ -1018,7 +1018,7 @@ h3 {
 }
 
 
-/* ================= BUDGETS ================= */
+
 
 .budget-list {
   display: flex;
@@ -1117,7 +1117,7 @@ h3 {
 }
 
 
-/* ================= REPORTS ================= */
+
 
 .report-panel {
   margin-bottom: 16px;
@@ -1167,7 +1167,7 @@ h3 {
 }
 
 
-/* ================= EMPTY STATE ================= */
+
 
 .empty-state {
   padding: 42px 20px;
@@ -1185,7 +1185,7 @@ h3 {
 }
 
 
-/* ================= MODALS ================= */
+
 
 .modal-overlay {
   position: fixed;
@@ -1350,7 +1350,7 @@ h3 {
 }
 
 
-/* ================= TOAST ================= */
+
 
 .toast {
   position: fixed;
@@ -1393,7 +1393,7 @@ h3 {
 }
 
 
-/* ================= ACCESSIBILITY ================= */
+
 
 .sr-only {
   position: absolute;
@@ -1414,7 +1414,7 @@ h3 {
 }
 
 
-/* ================= RESPONSIVE ================= */
+
 
 @media (max-width: 1100px) {
 
