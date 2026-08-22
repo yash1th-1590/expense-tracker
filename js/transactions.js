@@ -1,9 +1,3 @@
-/* =========================================================
-   transactions.js
-   Transaction creation, editing, deletion, filtering,
-   calculations and transaction rendering.
-   ========================================================= */
-
 const Transactions = (() => {
 
 
@@ -226,11 +220,6 @@ const Transactions = (() => {
 
     if (existingIndex >= 0) {
 
-      /*
-        Preserve properties that aren't
-        part of the form.
-      */
-
       AppState.data.transactions[
         existingIndex
       ] = {
@@ -250,14 +239,6 @@ const Transactions = (() => {
       );
     }
 
-
-    /*
-      Round-up should only happen for
-      newly created expenses.
-
-      This prevents editing a transaction
-      from adding another round-up.
-    */
 
     if (
       isNew &&
