@@ -1,9 +1,3 @@
-/* =========================================================
-   charts.js
-   Lightweight canvas charts.
-   No external chart library required.
-   ========================================================= */
-
 const Charts = (() => {
 
   const COLORS = [
